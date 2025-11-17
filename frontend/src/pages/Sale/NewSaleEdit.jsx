@@ -387,6 +387,13 @@ useEffect(() => {
           })
     }
 },[sale]);
+useEffect(() => {
+  if (sale) {
+  
+    setValue("GSTIN", sale.GSTIN ? String(sale.GSTIN) : "");
+
+  }
+}, [sale]);
 console.log(sale)
   console.log("Current form values:", formValues);
   console.log("Form errors:", errors);
@@ -948,7 +955,11 @@ console.log(itemsValues,"itemsValues");
                       className="w-full outline-none border-b-2 text-gray-900"
                       readOnly
                     />
-                  
+                    {errors?.GSTIN && (
+                                                <p className="text-red-500 text-xs mt-1">
+                                                    {errors?.GSTIN?.message}
+                                                </p>
+                                            )}
                   </div>
 
                                     </div>

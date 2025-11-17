@@ -33,7 +33,19 @@ export const saleNewItemFormSchema = z.object({
   Party_Name: z.string().min(1, "Party_Name is required"),
       GSTIN: z.string().min(15, "GSTIN must be at least 15 characters")
       .max(15, "GSTIN must be at most 15 characters"),
-  
+  // GSTIN: z
+  // .string()
+  // .trim()
+  // .refine(val => val.length === 15, {
+  //   message: "GSTIN must be exactly 15 characters"
+  // }),
+  // GSTIN: z
+  // .string()
+  // .transform((v) => v ?? "")   // ⬅️ ALWAYS convert undefined → ""
+  // .refine((v) => v.length === 0 || v.length === 15, {
+  //   message: "GSTIN must be exactly 15 characters",
+  // }),
+
   Invoice_Number: z.string().min(1, "Invoice_Number is required"),
 
   Invoice_Date: z

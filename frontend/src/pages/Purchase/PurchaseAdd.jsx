@@ -737,7 +737,11 @@ console.log("showGSTIN:", showGSTIN,parties);
                       className="w-full outline-none border-b-2 text-gray-900"
                       readOnly
                     />
-                  
+                   {errors?.GSTIN && (
+                                                <p className="text-red-500 text-xs mt-1">
+                                                    {errors?.GSTIN?.message}
+                                                </p>
+                                            )}
                   </div>
                
 

@@ -381,6 +381,13 @@ export default function PurchaseEdit() {
       })
     }
   }, [purchase])
+  useEffect(() => {
+  if (purchase) {
+   
+    setValue("GSTIN", purchase.GSTIN ? String(purchase.GSTIN) : "");
+    setShowGSTIN(purchase.GSTIN ? String(purchase.GSTIN) : "");
+  }
+}, [purchase]);
   const onSubmit = async (data) => {
     console.log("Form Data (from RHF):", data);
 
@@ -439,7 +446,7 @@ export default function PurchaseEdit() {
 
     } catch (error) {
       const errorMessage =
-        error?.data?.message || error?.message || "Failed to add new lead";
+        error?.data?.message || error?.message || "Failed to update purchase.";
       toast.error(errorMessage);
       // toast.error("Failed to add lead");
       console.error("Submission failed", error);
@@ -722,7 +729,7 @@ export default function PurchaseEdit() {
                         <p className="text-red-500 text-xs mt-1">{errors?.Party_Name?.message}</p>
                       )}
                     </div>
-                    <div className="input-field col s6 mt-3">
+                    <div className="input-field col s6 mt-4">
                       <span className="active">
                         GSTIN
 
@@ -736,7 +743,11 @@ export default function PurchaseEdit() {
                         className="w-full outline-none border-b-2 text-gray-900"
                         readOnly
                       />
-
+                        {errors?.GSTIN && (
+                                                <p className="text-red-500 text-xs mt-1">
+                                                    {errors?.GSTIN?.message}
+                                                </p>
+                                            )}
                     </div>
 
 

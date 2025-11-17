@@ -147,7 +147,7 @@ const handleRowChange = (index, field, value) => {
       resolver: zodResolver(saleFormSchema),
       defaultValues:{
         Party_Name: "",
-      
+        GSTIN : "",
         Invoice_Number: "",
         Invoice_Date: "",
         State_Of_Supply: "",
@@ -776,7 +776,11 @@ console.log(itemsValues,"itemsValues");
                       className="w-full outline-none border-b-2 text-gray-900"
                       readOnly
                     />
-                  
+                   {errors?.GSTIN && (
+                                                <p className="text-red-500 text-xs mt-1">
+                                                    {errors?.GSTIN?.message}
+                                                </p>
+                                            )}
                   </div>
 
                                     </div>

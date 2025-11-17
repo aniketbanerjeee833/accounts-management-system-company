@@ -18,6 +18,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 
 const Reports = lazy(() => import('./pages/Reports'));
 const DayWiseReport = lazy(() => import('./pages/DayWiseReport'));
+const DateRangeReport = lazy(() => import('./pages/DateRangeReport'));
 
 const AddCategory = lazy(() => import('./pages/Items/AddCategories'));
 const PartyAdd = lazy(() => import('./pages/Party/PartyAdd'));
@@ -85,7 +86,8 @@ function RouterWrapper() {
   const location = useLocation();
   console.log(location);
   const hideHeader = location.pathname === "/login" || 
-  location.pathname.startsWith("/day-wise-report");
+  location.pathname.startsWith("/day-wise-report") ||
+  location.pathname.startsWith("/date-range-report");
 
   return (
     <>
@@ -267,6 +269,13 @@ function RouterWrapper() {
               
               }
             />
+            <Route
+             path="/date-range-report/:fromDate/:toDate" 
+            element={<DateRangeReport/>} 
+            />
+
+ 
+
           </Route>
 
           {/* Fallback */}

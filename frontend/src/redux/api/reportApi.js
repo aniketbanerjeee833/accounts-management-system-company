@@ -15,6 +15,12 @@ export const reportApi = createApi({
         `report/get-sales-new-sales-purchases-each-day?date=${date}`,
       providesTags: ["Sales", "Purchases", "NewSales"],
     }),
+      getSalesNewSalesPurchasesInDateRange  : builder.query({
+        query: ({ fromDate, toDate }) =>
+            
+        `report/get-sales-new-sales-purchases-in-date-range?fromDate=${fromDate}&toDate=${toDate}`,
+      providesTags: ["Sales", "Purchases", "NewSales"],
+    }),
   printDailyReport: builder.mutation({
   query: (payload) => ({
     url: "report/print-daily-report",
@@ -31,4 +37,5 @@ export const reportApi = createApi({
 
   })
 
-export const { useGetSalesNewSalesPurchasesEachDayQuery ,usePrintDailyReportMutation} = reportApi
+export const { useGetSalesNewSalesPurchasesEachDayQuery ,
+    useGetSalesNewSalesPurchasesInDateRangeQuery,usePrintDailyReportMutation} = reportApi

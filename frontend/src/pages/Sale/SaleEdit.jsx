@@ -87,7 +87,7 @@ export default function SaleEdit() {
     resolver: zodResolver(saleFormSchema),
     defaultValues: {
       Party_Name: "",
-
+      GSTIN: "",
       Invoice_Number: "",
       Invoice_Date: "",
       State_Of_Supply: "",
@@ -391,7 +391,13 @@ export default function SaleEdit() {
   console.log("Current form values:", formValues);
   console.log("Form errors:", errors);
   const paymentType = watch("Payment_Type", "");
-
+useEffect(() => {
+  if (sale) {
+  
+    setValue("GSTIN", sale.GSTIN ? String(sale.GSTIN) : "");
+    setShowGSTIN(sale.GSTIN ? String(sale.GSTIN) : "");
+  }
+}, [sale]);
   //   const onSubmit = async(data) => {
   //   console.log("Form Data (from RHF):", data);
 
@@ -923,7 +929,11 @@ export default function SaleEdit() {
                         className="w-full outline-none border-b-2 text-gray-900"
                         readOnly
                       />
-
+                       {errors?.GSTIN && (
+                                                <p className="text-red-500 text-xs mt-1">
+                                                    {errors?.GSTIN?.message}
+                                                </p>
+                                            )}
                     </div>
 
                   </div>

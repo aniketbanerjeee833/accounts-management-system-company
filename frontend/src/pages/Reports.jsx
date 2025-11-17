@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useGetTotalNewSalesEachDayQuery, useGetTotalSalesEachDayQuery } from "../redux/api/saleApi";
 import { useGetTotalPurchasesEachDayQuery } from "../redux/api/purchaseApi";
 import { Calendar, Filter, X } from 'lucide-react';
+import { toast } from "react-toastify";
 
 export default function Reports() {
 //  const { data: user} = useGetUserByIdQuery()
@@ -105,7 +106,7 @@ console.log(
      // dispatch(clearSelectedLeads());
      setSelectedDate(dateStr);
      //navigate(`/day-wise-report/${dateStr}`);
-    window.open(`/day-wise-report/${dateStr}`);
+    window.open(`/day-wise-report/${dateStr}`,"_blank");
      // Remove the manual fetchLeadsByDate call - let the query handle it
    };
  
@@ -127,13 +128,16 @@ console.log(
       }
       
       // Open report in new tab with date range
-      window.open(`/date-range-report?start=${dateRange.startDate}&end=${dateRange.endDate}`, '_blank');
+      window.open(`/date-range-report/${dateRange.startDate}/${dateRange.endDate}`, "_blank");
+
+      //window.open(`/date-range-report?fromDate=${dateRange.startDate}&toDate=${dateRange.endDate}`, '_blank');
       setShowRangeModal(false);
       
       // Reset the form
       setDateRange({ startDate: '', endDate: '' });
     } else {
-      alert('Please select both start and end dates');
+      toast.error('Please select both start and end dates');
+      // alert('Please select both start and end dates');
     }
   };
  const renderCalendar = () => {
@@ -454,22 +458,24 @@ console.log(
               </h4>
 
               <div className="flex gap-2 sm:gap-4">
-                <button
+                <button style={{ outline: "none" }}
                   onClick={() => navigateMonth(-1)}
-                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm sm:text-base"
+                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300 
+                  focus:outline-none rounded text-sm sm:text-base"
                 >
                   ← Previous
                 </button>
                       <button  style={{ backgroundColor: "#4CA1AF" }}
                 onClick={() => setShowRangeModal(true)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition text-sm font-medium flex items-center gap-2"
+                className="px-4 py-2 bg-blue-600  text-white rounded-lg transition text-sm sm:text-base  flex items-center gap-2"
               >
                 <Filter className="w-4 h-4" />
                 Date Range Report
               </button>
-                <button
+                <button  style={{ outline: "none" }}
                   onClick={() => navigateMonth(1)}
-                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded text-sm sm:text-base"
+                  className="px-3 py-1 bg-gray-200
+                   rounded text-sm sm:text-base"
                 >
                   Next →
                 </button>

@@ -1,9 +1,9 @@
 import {   useParams } from "react-router-dom";
-import { useGetSalesNewSalesPurchasesEachDayQuery, usePrintDailyReportMutation } from "../redux/api/reportApi"
+import { useGetSalesNewSalesPurchasesInDateRangeQuery, usePrintDailyReportMutation } from "../redux/api/reportApi"
 
 
 
-export default function DayWiseReport() {
+export default function DateRangeReport() {
  const TAX_TYPES = {
         "GST0": "GST 0%",
         "GST0.25": "GST 0.25%",
@@ -22,9 +22,11 @@ export default function DayWiseReport() {
         IGST28: "IGST 28%",
         IGST40: "IGST 40%"
     }
-  const {date}=useParams();
+  const {fromDate,toDate}=useParams();
+  
   //console.log(date);
-  const{data:getSalesNewSalesPurchasesEachDay}=useGetSalesNewSalesPurchasesEachDayQuery({date});
+  const{data:getSalesNewSalesPurchasesEachDay}= 
+  useGetSalesNewSalesPurchasesInDateRangeQuery({fromDate,toDate});
   const salesNewSalesPurchasesEachDay=getSalesNewSalesPurchasesEachDay?.data;
   console.log(getSalesNewSalesPurchasesEachDay,salesNewSalesPurchasesEachDay);
   const sales=salesNewSalesPurchasesEachDay?.sales?.items||[];
@@ -71,7 +73,7 @@ export default function DayWiseReport() {
     //   totalPurchasesPaidAmount: data?.purchases?.totalPurchasesPaidAmount
     // };
 const payload = {
-  date,
+  fromDate,toDate,
 
   // SALES
   sales: data.sales.items || [],
@@ -109,38 +111,24 @@ const payload = {
 };
 console.log(salesNewSalesPurchasesEachDay?.sales?.totalSalesAmount );
    return (
-         <>
-             {/* <div className="sb2-2-2">
-                 <ul>
- 
-                     <NavLink style={{ display: "flex", flexDirection: "row" }}
-                         to="/home"
- 
-                     >
-                         <LayoutDashboard size={20} style={{ marginRight: '8px' }} />
- 
-                         Dashboard
-                     </NavLink>
- 
-                 </ul>
-             </div> */}
+         
             
              <div className="sb2-2-3 mt-4">
                  <div className="row" style={{margin: "0px"}}>
                      <div className="col-md-12">
                          <div style={{ padding: "20px" }}
                              className="box-inn-sp">
-                              {/* <div className="flex justify-end  items-center gap-95">
-                                 <div style={{ marginTop: "0px",borderBottom:"none" }}
-                                  className=" inn-title  ">
+                             {/* <div className="flex justify-end  items-center gap-64">
+                                 <div style={{ marginTop: "0px",borderBottom:"none" }} 
+                                 className=" inn-title  ">
                                      <h4 className="text-2xl font-bold mb-2">
-                                        DAILY  REPORT &nbsp; &nbsp;  {date}
+                                        DATE RANGE REPORT &nbsp; &nbsp;  {fromDate} to {toDate}
                                         
                                      </h4>
                                      
                                  </div>
                              
-                                   
+                                         
                           <button
                     type="button"
                     disabled={isPrintLoading}
@@ -151,20 +139,19 @@ console.log(salesNewSalesPurchasesEachDay?.sales?.totalSalesAmount );
                   >
                    {isPrintLoading ? "Printing..." : "Print"}
                   </button>
-                 
-                       </div>       */}
-                       <div className="flex items-center justify-between w-full">
+                  </div> */}
+                                        <div className="flex items-center justify-between w-full">
   
   {/* LEFT spacer to center title */}
   <div className="flex-1"></div>
 
   {/* CENTER TITLE */}
   <div
-    className="text-center flex-1 whitespace-nowrap  inn-title "
+    className="text-center flex-1  whitespace-nowrap inn-title "
     style={{ marginTop: "0px", borderBottom: "none" }}
   >
     <h4 className="text-2xl font-bold mb-2">
-      DAILY REPORT &nbsp; &nbsp; {date}
+        DATE RANGE REPORT &nbsp;{fromDate} to {toDate}
     </h4>
   </div>
 
@@ -182,7 +169,7 @@ console.log(salesNewSalesPurchasesEachDay?.sales?.totalSalesAmount );
   </div>
 
 </div>
-
+                             
                              <div className="flex justify-center align-center">
                                  <h3 className="text-2xl  font-bold mb-2"
                                  style={{color:"red"}}>Total Purchases</h3>
@@ -884,6 +871,6 @@ console.log(salesNewSalesPurchasesEachDay?.sales?.totalSalesAmount );
                      </div>
                  </div>
              </div>
-         </>
+         
      );
 }
