@@ -28,7 +28,14 @@ const digitsOnly = (fieldName, required = true) =>
 // ✅ Schema
  const purchaseSchema = z.object({
   Party_Name: z.string().min(1, "Party_Name is required"),
-  
+      //  GSTIN: z
+      // .string()
+      // .trim()
+      // .refine(val => val.length === 15, {
+      //   message: "GSTIN must be exactly 15 characters"
+      // }),
+    GSTIN: z.string().min(15, "GSTIN must be at least 15 characters")
+        .max(15, "GSTIN must be at most 15 characters"),
   Bill_Number: z.string().min(1, "Bill_Number is required"),
 
   Bill_Date: z

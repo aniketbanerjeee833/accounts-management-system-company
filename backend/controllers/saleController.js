@@ -57,6 +57,7 @@ const addSale = async (req, res, next) => {
 
     const {
       Party_Name,
+      GSTIN,
       Invoice_Number,
       Invoice_Date,
       State_Of_Supply,
@@ -294,6 +295,7 @@ const addNewSale = async (req, res, next) => {
       Invoice_Date,
       State_Of_Supply,
       Total_Amount,
+      GSTIN,
       Total_Received,
       Balance_Due,
       Payment_Type,
